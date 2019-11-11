@@ -2,7 +2,7 @@ defmodule GroceryStoreWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", GroceryStoreWeb.RoomChannel
+  channel "room:*", GroceryStoreWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
