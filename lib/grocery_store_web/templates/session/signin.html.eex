@@ -1,0 +1,35 @@
+<div class="loginContainer row shadow">
+    <div class="col-md-8">
+        <div class="p-3 ">
+            <div class="titleDiv">
+                <h2 class="pagetitle">Login</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <section id="loginForm">
+                        <%= form_for @conn, session_path(@conn, :login), fn f-> %>
+                            <div class="col-md-12">
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="name">User Name</label>
+                                    <%= text_input f, :user_name, class: "form-control" %>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">Password</label>
+                                    <%= text_input f, :password_hex, class: "form-control" %>
+                                 </div>
+                            </div>
+                                <div class=" col-md-12">
+                                    <input type="submit" value="Sign In" class="btn btn-primary w-100">
+                                </div>
+                            
+
+                        <% end %>
+                     </section>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,53 @@
+<div class="loginContainer row shadow">
+    <div class="col-md-8">
+        <div class="p-3 ">
+            <div class="titleDiv">
+                <h2 class="pagetitle">Registration Form</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <section id="registrationForm">
+                        <%= form_for @user, login_path(@conn, :register), fn f-> %>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">Name</label>
+                                    <%= text_input f, :name, class: "form-control" %>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="name">User Name</label>
+                                    <%= text_input f, :user_name, class: "form-control" %>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">Password</label>
+                                    <%= text_input f, :password_hex, class: "form-control" %>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">Contact</label>
+                                    <%= text_input f, :contact, class: "form-control" %>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">Address</label>
+                                    <%= text_input f, :address, class: "form-control" %>
+                                 </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">Email</label>
+                                    <%= text_input f, :email, class: "form-control" %>
+                                 </div>
+                            </div>
+                                <div class=" col-md-12">
+                                    <input type="submit" value="Sign Up" class="btn btn-primary w-100">
+                                </div>
+
+                        <% end %>
+                     </section>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
