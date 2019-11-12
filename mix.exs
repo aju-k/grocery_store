@@ -42,8 +42,7 @@ defmodule GroceryStore.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:plug_cowboy, "~> 1.0"},
-      {:comeonin, "~> 5.1"},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:comeonin, "~> 5.1"}
     ]
   end
 
@@ -57,7 +56,7 @@ defmodule GroceryStore.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
