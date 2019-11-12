@@ -7,7 +7,7 @@ defmodule GroceryStore.User do
     field(:name, :string)
     field(:user_name, :string)
     field(:crypted_password, :string)
-    field(:contact, :integer)
+    field(:contact, :string)
     field(:address, :string)
     field(:email, :string)
   end

@@ -16,13 +16,14 @@ defmodule GroceryStoreWeb.Router do
   scope "/", GroceryStoreWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", HomeController, :index
     get "/signup", LoginController, :signup
     post "/register", LoginController, :register
     get "/signin", SessionController, :signin
     post "/login", SessionController, :login
 
     delete "/logout", SessionController, :delete
+    get "/home", HomeController, :index
     
   end
 
