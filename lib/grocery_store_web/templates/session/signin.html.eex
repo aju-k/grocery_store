@@ -19,11 +19,12 @@
                                     <%= password_input f, :crypted_password, class: "form-control" %>
                                  </div>
                             </div>
-                                <div class=" col-md-12">
+                            <div class="col-md-5">
                                     <input type="submit" value="Sign In" class="btn btn-primary w-100">
                                 </div>
-                            
-
+                            <div class="col-md-12">
+                                    <%= link "Not a member? Sign Up Now", to: login_path(@conn, :signup) %>
+                            </div>
                         <% end %>
                      </section>
                 </div>
