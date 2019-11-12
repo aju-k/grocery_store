@@ -10,5 +10,5 @@
 import "phoenix_html"
 import socket from "./socket"
 import client from "./client"
-
+import 'bootstrap';
 client.init(socket)

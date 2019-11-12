@@ -21,6 +21,7 @@ defmodule GroceryStoreWeb.Router do
     post "/register", LoginController, :register
     get "/signin", SessionController, :signin
     post "/login", SessionController, :login
+    
   end
 
   # Other scopes may use custom stacks.
