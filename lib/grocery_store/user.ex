@@ -6,7 +6,7 @@ defmodule GroceryStore.User do
   schema "users" do
     field(:name, :string)
     field(:user_name, :string)
-    field(:password_hex, :string)
+    field(:crypted_password, :string)
     field(:contact, :integer)
     field(:address, :string)
     field(:email, :string)
@@ -14,11 +14,11 @@ defmodule GroceryStore.User do
 
   def changeset(user, params \\ %{}) do
     user
-    |> cast(params, [:name, :user_name, :password_hex, :contact, :address, :email])
+    |> cast(params, [:name, :user_name, :crypted_password, :contact, :address, :email])
     |> validate_required([
       :name,
       :user_name,
-      :password_hex,
+      :crypted_password,
       :contact,
       :address,
       :email

@@ -5,7 +5,7 @@ defmodule GroceryStore.Repo.Migrations.CreateTableUser do
     create table(:users) do
       add :name, :string
       add :user_name, :string
-      add :password_hex, :string
+      add :crypted_password, :string
       add :contact, :integer
       add :address, :string
       add :email, :string

@@ -585,9 +585,31 @@
         </div>
       </div>
   	</section>
+      <header class="header">
+        <%# <nav role="navigation">
+          <ul class="nav nav-pills pull-right">
+            <li><a href="/home">Logout</a></li>
+          </ul>
+        </nav>
+        <span class="logo"></span> %>
+        <%= if logged_in?(@conn) do %>
+  <li> Welcome <%= current_user(@conn).name %></li>
+  <li><%= link "Logout", to: session_path(@conn, :delete), method: :delete %></li>
+<% else %>
+  <li><%= link "Login",    to: "/signin" %></li>
+  <li><%= link "Register", to: login_path(@conn, :signup) %></li>
+<% end %>
+      </header>
+
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+
+      <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
 
     </div> <!-- /container -->
-    
+
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 

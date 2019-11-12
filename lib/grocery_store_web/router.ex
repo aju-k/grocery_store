@@ -21,6 +21,8 @@ defmodule GroceryStoreWeb.Router do
     post "/register", LoginController, :register
     get "/signin", SessionController, :signin
     post "/login", SessionController, :login
+
+    delete "/logout", SessionController, :delete
     
   end
 
