@@ -12,11 +12,13 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="name">Name</label>
                                     <%= text_input f, :name, class: "form-control" %>
+                                    <%= error_tag f, :name %>
                                  </div>
 
                                  <div class="form-group">
                                     <label class="col-md-3 control-label" for="name">User Name</label>
                                     <%= text_input f, :user_name, class: "form-control" %>
+                                    <%= error_tag f, :user_name %>
                                  </div>
 
                                  <div class="form-group">
@@ -36,6 +38,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="name">Email</label>
                                     <%= text_input f, :email, class: "form-control" %>
+                                    <%= error_tag f, :email %>
                                  </div>
                             </div>
                                 <div class=" col-md-12">

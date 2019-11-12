@@ -1,6 +1,8 @@
 defmodule GroceryStore.User do
   use Ecto.Schema
 
+  import Ecto.Changeset
+
   schema "users" do
     field(:name, :string)
     field(:user_name, :string)
@@ -12,8 +14,8 @@ defmodule GroceryStore.User do
 
   def changeset(user, params \\ %{}) do
     user
-    |> Ecto.Changeset.cast(params, [:name, :user_name, :password_hex, :contact, :address, :email])
-    |> Ecto.Changeset.validate_required([
+    |> cast(params, [:name, :user_name, :password_hex, :contact, :address, :email])
+    |> validate_required([
       :name,
       :user_name,
       :password_hex,
@@ -21,6 +23,9 @@ defmodule GroceryStore.User do
       :address,
       :email
     ])
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
+    |> unique_constraint(:user_name)
   end
 end
 

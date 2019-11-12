@@ -9,15 +9,19 @@ defmodule GroceryStoreWeb.LoginController do
   end
 
   def register(conn, %{"user" => user_params}) do
-    # IO.inspect(user_params)
-    userObj = User.changeset(%User{}, user_params)
-    {:ok, user} = Repo.insert(userObj)
+    changesetObj = User.changeset(%User{}, user_params)
+    case Repo.insert(changesetObj) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, '#{user.name} created')
+        |> redirect(to: login_path(conn, :signup))
 
-    conn
-    |> put_flash(:info, '#{user.name} created')
-    |> redirect(to: login_path(conn, :signup))
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Sorry try again")
+        |> render("signup.html", user: changeset)
+    end
   end
-
 
   def index(conn, _params) do
     render(conn, "index.html")
