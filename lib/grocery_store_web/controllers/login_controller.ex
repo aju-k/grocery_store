@@ -19,9 +19,8 @@ defmodule GroceryStoreWeb.LoginController do
 
       {:error, changeset} ->
         conn
-        |> put_flash(:error, "Sorry try again")
+        |> put_flash(:error, "Unable to create account")
         |> render("signup.html", user: changeset)
-
     end
   end
 

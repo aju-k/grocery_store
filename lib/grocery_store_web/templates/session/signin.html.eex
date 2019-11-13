@@ -20,7 +20,7 @@
                                  </div>
                             </div>
                             <div class="col-md-5">
-                                    <input type="submit" value="Sign In" class="btn btn-primary w-100">
+                                    <input type="submit" value="Sign In" class="btn btn-primary w-100" style='height: 40px'>
                                 </div>
                             <div class="col-md-12">
                                     <%= link "Not a member? Sign Up Now", to: login_path(@conn, :signup) %>

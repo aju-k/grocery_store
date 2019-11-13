@@ -41,8 +41,8 @@
                                     <%= error_tag f, :email %>
                                  </div>
                             </div>
-                                <div class=" col-md-12">
-                                    <input type="submit" value="Sign Up" class="btn btn-primary w-100">
+                                <div class=" col-md-5">
+                                    <input type="submit" value="Sign Up" class="btn btn-primary w-100" style='height: 40px'>
                                 </div>
 
                         <% end %>

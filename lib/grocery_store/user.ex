@@ -26,6 +26,10 @@ defmodule GroceryStore.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> unique_constraint(:user_name)
+    |> downcase_username
+  end
+  defp downcase_username(changeset) do
+    update_change(changeset, :user_name, &String.downcase/1)
   end
 end
 
