@@ -22,7 +22,7 @@ defmodule GroceryStoreWeb.SessionController do
   def delete(conn, _) do
     conn
     |> delete_session(:current_user)
-    |> put_flash(:info, "Logged out")
+    |> put_flash(:info, "You are Logged out.")
     |> redirect(to: "/")
   end
 

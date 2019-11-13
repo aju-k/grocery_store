@@ -19,4 +19,6 @@ npm-debug.log
 /installer/doc
 /installer/deps
 erl_crash.dump
-.elixir_ls/
+/.elixir_ls/
+/elixir_ls/
+.elixir_ls
