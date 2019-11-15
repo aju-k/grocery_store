@@ -1,5 +1,6 @@
 defmodule GroceryStore.User do
   use Ecto.Schema
+  alias GroceryStore.Chats.Message
 
   import Ecto.Changeset
 
@@ -10,6 +11,7 @@ defmodule GroceryStore.User do
     field(:contact, :string)
     field(:address, :string)
     field(:email, :string)
+    has_many :messages, Message, foreign_key: :receiver_id, references: :id
   end
 
   def changeset(user, params \\ %{}) do

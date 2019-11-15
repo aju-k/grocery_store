@@ -1,8 +1,7 @@
 defmodule GroceryStoreWeb.PrivateRoomChannel do
 
   use GroceryStoreWeb, :channel
-  alias GroceryStoreWeb.Presence
-  alias GroceryStoreWeb.Chats
+  alias GroceryStore.Chats
 
   def join("room:lobby", _payload, socket) do
     {:ok, socket}
@@ -13,7 +12,7 @@ defmodule GroceryStoreWeb.PrivateRoomChannel do
   end
 
   def handle_in("shout", payload, socket) do
-#   Chats.create_message(payload)
+    Chats.create_message(payload)
     broadcast(socket, "shout", payload)
     {:noreply, socket}
   end

@@ -1,103 +1,63 @@
 defmodule GroceryStore.Chats do
-  @moduledoc """
-  The Chats context.
-  """
-
   import Ecto.Query, warn: false
   alias GroceryStore.Repo
-
   alias GroceryStore.Chats.Message
+  alias GroceryStore.User
 
-  @doc """
-  Returns the list of messages.
-
-  ## Examples
-
-      iex> list_messages()
-      [%Message{}, ...]
-
-  """
-  def list_messages do
-    Repo.all(Message)
+  def list_messages(user_id) do
+    query = from m in Message, where: m.sender_id == ^user_id or m.receiver_id == ^user_id, select: %{id: m.id, body: m.body, sender_id: m.sender_id}
+    Repo.all(query)
   end
 
-  @doc """
-  Gets a single message.
+  # def list_conversation(user_id) do
+  #   user_query = from u in User, order_by: [desc: u.id], select: u.name
+  #   query = from m in Message, where: m.sender_id == ^user_id, order_by: [desc: m.id], preload: [user: ^user_query]
+  #   #query = from m in Message, where: m.sender_id == ^user_id, preload: [:user]
+  #   messagesList = Repo.all(query)
+  #   resp_map = %{}
 
-  Raises `Ecto.NoResultsError` if the Message does not exist.
+  #   resp = Enum.map(messagesList, fn message ->
+  #     if Map.has_key?(resp_map, message.user) do
+  #       Map.put(resp_map, message.user, message)
+  #     end
 
-  ## Examples
+  #   end)
+  # end
 
-      iex> get_message!(123)
-      %Message{}
+  def conversation_list(user_id) do
+    rawQuery = "SELECT * FROM
+                  (SELECT max(id) message_id, receiver_id as user_id FROM messages WHERE sender_id = #{user_id} group by receiver_id
+               UNION distinct
+                  (SELECT max(id) message_id, sender_id as user_id FROM messages WHERE receiver_id = #{user_id} group by sender_id)) t1
+              INNER JOIN users on users.id = t1.user_id
+              INNER JOIN messages on messages.id = t1.message_id";
 
-      iex> get_message!(456)
-      ** (Ecto.NoResultsError)
+    resultSet = Ecto.Adapters.SQL.query!(Repo, rawQuery, [])
+    columns = Enum.map resultSet.columns, &(String.to_atom(&1))
+    Enum.map resultSet.rows, fn(row) ->
+      IO.inspect(row)
+     Map.new(Enum.zip(columns, row))
+    end
+  end
 
-  """
   def get_message!(id), do: Repo.get!(Message, id)
 
-  @doc """
-  Creates a message.
-
-  ## Examples
-
-      iex> create_message(%{field: value})
-      {:ok, %Message{}}
-
-      iex> create_message(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_message(attrs \\ %{}) do
     %Message{}
     |> Message.changeset(attrs)
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a message.
-
-  ## Examples
-
-      iex> update_message(message, %{field: new_value})
-      {:ok, %Message{}}
-
-      iex> update_message(message, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def update_message(%Message{} = message, attrs) do
     message
     |> Message.changeset(attrs)
     |> Repo.update()
   end
 
-  @doc """
-  Deletes a Message.
-
-  ## Examples
-
-      iex> delete_message(message)
-      {:ok, %Message{}}
-
-      iex> delete_message(message)
-      {:error, %Ecto.Changeset{}}
-
-  """
   def delete_message(%Message{} = message) do
     Repo.delete(message)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking message changes.
-
-  ## Examples
-
-      iex> change_message(message)
-      %Ecto.Changeset{source: %Message{}}
-
-  """
   def change_message(%Message{} = message) do
     Message.changeset(message, %{})
   end

@@ -116,6 +116,7 @@
 
 (function() {
 var global = typeof window === 'undefined' ? this : window;
+var process;
 var __makeRelativeRequire = function(require, mappings, pref) {
   var none = {};
   var tryReq = function(name, pref) {
@@ -19577,16 +19578,23 @@ var client = {
         document.getElementById('btnPost').addEventListener('click', function (e) {
             e.preventDefault();
             var userMsg = document.getElementById('user-msg').value;
-            channel.push('shout', { body: userMsg });
+            var senderId = document.getElementById('sender-id').value;
+            // let receiverId = document.getElementById('receiver-id').value;
+            var payloadObj = { body: userMsg, sender_id: senderId };
+            channel.push('shout', payloadObj);
+            var senderMsgHtml = '<div class="outgoing_msg">\n                                <div class="sent_msg">\n                                    <p>' + payloadObj.body + '</p>\n                                    <span class="time_date"> 11:01 AM    |    June 9</span> </div>\n                                </div>';
+            $('.msg_history').append(senderMsgHtml);
             document.getElementById('user-msg').value = '';
         });
 
         channel.on('shout', function (payload) {
-            var chatBox = document.querySelector('#chat-box');
-            var msgBlock = document.createElement('p');
-
-            msgBlock.insertAdjacentHTML('beforeend', '' + payload.body);
-            chatBox.appendChild(msgBlock);
+            console.log("== REPLY ==", payload);
+            var loggedInUserId = $('#current_user_id').val();
+            if (payload.sender_id == loggedInUserId) {
+                return false;
+            }
+            var messageHtml = '<div class="incoming_msg">\n                 <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\n                    <div class="received_msg">\n                    <div class="received_withd_msg">\n                        <p>' + payload.body + '</p>\n                        <span class="time_date"> 11 AM    |    June 9</span></div>\n                    </div>\n                </div>';
+            $('.msg_history').append(messageHtml);
         });
     }
 };
@@ -19622,7 +19630,7 @@ require.alias("jquery/dist/jquery.js", "jquery");
 require.alias("phoenix/priv/static/phoenix.js", "phoenix");
 require.alias("phoenix_html/priv/static/phoenix_html.js", "phoenix_html");
 require.alias("popper.js/dist/umd/popper.js", "popper.js");
-require.alias("process/browser.js", "process");require.register("___globals___", function(exports, require, module) {
+require.alias("process/browser.js", "process");process = require('process');require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
 
